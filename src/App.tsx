@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Button from "./components/atoms/Button";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+        <Button label="aaaa" onClick={(e: MouseEvent<HTMLButtonElement>) => {console.log("AAAAA")}}></Button>
       </header>
     </div>
   );
