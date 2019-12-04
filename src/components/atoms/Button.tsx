@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 type ButtonProps = {
   label: string
@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     <div>
       <button onClick={onClick}>{label}</button>
     </div>
-  );
+  )
 }
 
-export default Button;
+export default Button
