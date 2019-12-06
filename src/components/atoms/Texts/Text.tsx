@@ -7,7 +7,7 @@ type TextProps = {
   readonly color?: Color
 }
 
-const Text: React.FC<TextProps> = ({ text, color = Color.BASE }: TextProps) => (
+const Text: React.SFC<TextProps> = ({ text, color = Color.BASE }: TextProps) => (
   <StyledText color={color}>{text}</StyledText>
 )
 

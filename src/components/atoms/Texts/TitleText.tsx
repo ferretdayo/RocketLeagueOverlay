@@ -7,7 +7,7 @@ type TitleTextProps = {
   readonly color?: Color
 }
 
-const TitleText: React.FC<TitleTextProps> = (props) => {
+const TitleText: React.SFC<TitleTextProps> = (props) => {
   const { text, color = Color.WHITE } = props
   return (
     <StyledTitleText color={color}>{text}</StyledTitleText>
