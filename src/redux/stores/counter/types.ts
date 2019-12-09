@@ -12,12 +12,12 @@ export const DECREMENT_COUNT = 'DECREMENT_COUNT'
 
 interface IncrementAction {
     type: typeof INCREMENT_COUNT
-    payload: Counter
+    payload: number
 }
 
 interface DecrementAction {
     type: typeof DECREMENT_COUNT
-    payload: Counter
+    payload: number
 }
 
 export type CounterActionTypes = IncrementAction | DecrementAction

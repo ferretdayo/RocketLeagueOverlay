@@ -18,6 +18,7 @@ export default Button
 
 const StyledButton = styled.button`
   padding: 10px;
+  margin: 4px;
   width: 150px;
   border: 0;
   background-color: ${Color.GRAY};

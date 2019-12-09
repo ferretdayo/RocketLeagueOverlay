@@ -1,15 +1,15 @@
-import { Counter, INCREMENT_COUNT, DECREMENT_COUNT, CounterActionTypes } from './types'
+import { INCREMENT_COUNT, DECREMENT_COUNT, CounterActionTypes } from './types'
 
-export function incrementCount(newCounter: Counter): CounterActionTypes {
+export function incrementCount(count: number): CounterActionTypes {
     return {
         type: INCREMENT_COUNT,
-        payload: newCounter
+        payload: count
     }
 }
 
-export function decrementCount(newCounter: Counter): CounterActionTypes {
+export function decrementCount(count: number): CounterActionTypes {
     return {
         type: DECREMENT_COUNT,
-        payload: newCounter
+        payload: count
     }
 }

@@ -14,15 +14,11 @@ export function counterReducer(
 ): CounterState {
   switch (action.type) {
     case INCREMENT_COUNT: 
-      return {
-        counter: {
-          ...action.payload
-        }
-      }
     case DECREMENT_COUNT:
       return {
         counter: {
-          ...action.payload
+          count: action.payload,
+          date: moment().toDate()
         }
       }
     default: 
