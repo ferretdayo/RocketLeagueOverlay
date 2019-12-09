@@ -33,7 +33,7 @@ const App: React.FC<Props> = ({
     <div className="App">
       <header className="App-header">
         <Title text={"カウンターアプリ"} color={Color.WHITE}></Title>
-        <Text text={count.toString()}></Text>
+        <Text text={count.toString()} color={Color.WHITE}></Text>
         <Text text={date.toLocaleString()}></Text>
         <FlexContainer>
           <Button label="引くよ！押して！" onClick={(e: MouseEvent<HTMLButtonElement>) => {decrement(count-1)}}></Button>
