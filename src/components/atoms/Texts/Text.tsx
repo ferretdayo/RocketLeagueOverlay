@@ -7,12 +7,9 @@ type TextProps = {
   readonly color?: Color
 }
 
-const Text: React.FC<TextProps> = (props) => {
-  const { text, color = Color.WHITE } = props
-  return (
-    <StyledText color={color}>{text}</StyledText>
-  )
-}
+const Text: React.SFC<TextProps> = ({ text, color = Color.BASE }: TextProps) => (
+  <StyledText color={color}>{text}</StyledText>
+)
 
 export default Text
 
