@@ -14,7 +14,6 @@ const middlewares: Middleware<any, any, any>[] = [thunk]
 
 const store = createStore(
   rootReducer,
-  // applyMiddleware(thunk)
   composeWithDevTools(applyMiddleware(...middlewares))
 )
 
