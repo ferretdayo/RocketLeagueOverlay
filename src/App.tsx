@@ -1,5 +1,9 @@
 import React, { MouseEvent } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import _ from 'lodash'
+import styled from 'styled-components'
+
 import './App.css'
 import Button from './components/atoms/Buttons/Button'
 import Text from './components/atoms/Texts/Text'
@@ -7,10 +11,8 @@ import Title from './components/atoms/Texts/TitleText'
 import { Color } from './constants/Styles/Color'
 import { RootState } from './redux/stores'
 import { incrementCount, decrementCount } from './redux/stores/counter/actions'
-import { fetchPrefectures, syncChangePrefectures } from './redux/stores/resas/actions'
+import { syncChangePrefectures } from './redux/stores/resas/actions'
 import { CounterState } from './redux/stores/counter/types'
-import moment from 'moment'
-import styled from 'styled-components'
 import { ResasState } from './redux/stores/resas/types'
 
 type Props = {
@@ -18,7 +20,6 @@ type Props = {
   resas: ResasState,
   incrementCount: (count: number) => void,
   decrementCount: (count: number) => void,
-  fetchPrefectures: () => void,
   syncChangePrefectures: () => void,
 }
 
@@ -34,12 +35,13 @@ const App: React.FC<Props> = ({
   },
   incrementCount = (count: number) => count+1,
   decrementCount = (count: number) => count-1,
+  syncChangePrefectures = _.noop
 }: Props) => {
   const { count, date } = counter.counter
 
   const onClickIncrementButton = (e: MouseEvent<HTMLButtonElement>) => incrementCount(count+1)
   const onClickDecrementButton = (e: MouseEvent<HTMLButtonElement>) => decrementCount(count-1)
-  const onClickResasDataFetchButton = () => {fetchPrefectures(); syncChangePrefectures()}
+  const onClickResasDataFetchButton = (e: MouseEvent<HTMLButtonElement>) => syncChangePrefectures()
 
   return (
     <div className="App">
@@ -52,7 +54,11 @@ const App: React.FC<Props> = ({
           <Button label="足すよ！押して！" onClick={onClickIncrementButton}></Button>
         </FlexContainer>
         <div>
-          <Text text={resas.prefectures.toString()}></Text>
+          <div style={{height: '300px', overflowY: 'scroll'}}>
+            {resas.prefectures.length > 0 && resas.prefectures.map((prefecture) => {
+              return (<div key={prefecture.prefCode}>{prefecture.prefName || "a"}</div>)
+            })}
+          </div>
           <Button label="Resasからデータ取得" onClick={onClickResasDataFetchButton}></Button>
         </div>
       </header>
@@ -74,7 +80,6 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = {
   incrementCount,
   decrementCount,
-  fetchPrefectures,
   syncChangePrefectures,
 }
 

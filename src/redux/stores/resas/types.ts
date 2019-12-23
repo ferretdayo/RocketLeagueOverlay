@@ -4,14 +4,14 @@ export interface Prefecture {
 }
 
 export interface ResasState {
-    prefectures: [Prefecture?]
+    prefectures: Prefecture[]
 }
 
 export const FETCH_PREFECTURES = 'FETCH_PREFECTURES'
 
 interface FetchPrefecturesAction {
     type: typeof FETCH_PREFECTURES
-    payload: [Prefecture?]
+    payload: Prefecture[]
 }
 
 
