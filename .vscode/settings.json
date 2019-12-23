@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": false,
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false,
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // }
+}
