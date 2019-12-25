@@ -8,11 +8,11 @@
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-redux": "^7.1.3",
     "react-scripts": "3.2.0",
-    "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.0-5.canary-sheet",
-    "typescript": "3.7.2"
+    "typescript": "3.7.2",
+    "typescript-fsa": "^3.0.0",
+    "typescript-fsa-reducers": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,10 +43,7 @@
     "@types/node": "13.1.0",
     "@types/react": "16.9.14",
     "@types/react-dom": "16.9.4",
-    "@types/react-redux": "^7.1.5",
-    "@types/redux-thunk": "^2.1.0",
     "@types/styled-components": "^4.4.1",
-    "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.12.0",
     "babel-eslint": "^10.0.3",
