@@ -1,12 +1,12 @@
 import { counterReducer } from './counter/reducers'
 import { resasReducer } from './resas/reducers'
-import { CounterActionTypes } from './counter/types'
+import { CounterActionTypes } from './counter/actions'
 import { ResasActionTypes } from './resas/types'
 import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({
   counter: counterReducer,
-  resas: resasReducer
+  resas: resasReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

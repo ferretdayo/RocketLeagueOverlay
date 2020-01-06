@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { reducerWithInitialState } from 'typescript-fsa-reducers/dist'
 
-import { CounterState, Counter } from './types'
+import { CounterState } from './types'
 import { increment, decrement } from './actions'
 
 const initialState: CounterState = {
@@ -11,6 +11,10 @@ const initialState: CounterState = {
   },
 }
 
-export const countUpReducer = reducerWithInitialState(initialState)
-  .case(increment, (state: CounterState, payload: Counter): CounterState => {...state, counter: payload})
-  .case(decrement, (state, payload) => state.dec(payload))
+export const counterReducer = reducerWithInitialState(initialState)
+  .case(increment, (state: CounterState, payload: number) => {
+    return { counter: { count: payload, date: moment().toDate() } }
+  })
+  .case(decrement, (state: CounterState, payload: number) => {
+    return { counter: { count: payload, date: moment().toDate() } }
+  })

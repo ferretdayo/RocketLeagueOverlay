@@ -1,6 +1,15 @@
+import actionCreatorFactory from 'typescript-fsa'
+
 import axios from 'axios'
-import { FETCH_PREFECTURES, ResasActionTypes, Prefecture } from './types'
+import { FETCH_PREFECTURES, Prefecture } from './types'
 import { Dispatch } from 'react'
+
+export enum ResasActionTypes {
+  FETCH_PREFECTURES = 'resas/FETCH_PREFECTURES',
+}
+const actionCreator = actionCreatorFactory()
+
+export const changePrefectures = actionCreator<Prefecture[]>(ResasActionTypes.FETCH_PREFECTURES)
 
 export const syncChangePrefectures = () => async (dispatch: Dispatch<ResasActionTypes>) => {
   const response = await axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
@@ -13,9 +22,9 @@ export const syncChangePrefectures = () => async (dispatch: Dispatch<ResasAction
   return dispatch(changePrefectures([]))
 }
 
-export const changePrefectures = (prefectures: Prefecture[]): ResasActionTypes => {
-  return {
-    type: FETCH_PREFECTURES,
-    payload: prefectures,
-  }
-}
+// export const changePrefectures = (prefectures: Prefecture[]): ResasActionTypes => {
+//   return {
+//     type: FETCH_PREFECTURES,
+//     payload: prefectures,
+//   }
+// }
