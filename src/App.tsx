@@ -20,7 +20,8 @@ type Props = {
   resas: ResasState
   increment: (count: number) => void
   decrement: (count: number) => void
-  syncChangePrefectures: () => void
+  // changePrefectures: () => void
+  syncChangePrefectures: () => Promise<void>
 }
 
 const App: React.FC<Props> = ({
@@ -33,10 +34,11 @@ const App: React.FC<Props> = ({
   resas = {
     prefectures: [],
   },
-  increment = (count: number) => count + 1,
-  decrement = (count: number) => count - 1,
-  syncChangePrefectures = _.noop,
-}: Props) => {
+  increment = (count: number) => {},
+  decrement = (count: number) => {},
+  syncChangePrefectures = () => new Promise(_.noop),
+}: // changePrefectures = _.noop,
+Props) => {
   const { count, date } = counter.counter
 
   const onClickIncrementButton = (e: MouseEvent<HTMLButtonElement>) => increment(count + 1)

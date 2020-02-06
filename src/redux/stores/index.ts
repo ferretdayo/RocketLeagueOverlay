@@ -1,7 +1,7 @@
 import { counterReducer } from './counter/reducers'
 import { resasReducer } from './resas/reducers'
 import { CounterActionTypes } from './counter/actions'
-import { ResasActionTypes } from './resas/types'
+import { ResasActionTypes } from './resas/actions'
 import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({
