@@ -1,7 +1,7 @@
-import actionCreatorFactory, { Success, Failure } from 'typescript-fsa'
+import actionCreatorFactory from 'typescript-fsa'
 
 import axios from 'axios'
-import { Prefecture, ResasParams, ResasResult, ResasError } from './types'
+import { ResasParams, ResasResult, ResasError } from './types'
 import { Dispatch } from 'react'
 
 export enum ResasActionTypes {
@@ -15,23 +15,32 @@ export const changePrefectures = actionCreator.async<ResasParams, ResasResult, R
 
 export const syncChangePrefectures = () => async (dispatch: Dispatch<any>) => {
   dispatch(changePrefectures.started({ params: {} }))
-  const response = await axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
-    headers: { 'X-API-KEY': 'igDIvsWS3g9gQtO43BbUvCs6df4O2mzZy5emV8on' },
-  })
+  try {
+    const response = await axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
+      headers: { 'X-API-KEY': 'igDIvsWS3g9gQtO43BbUvCs6df4O2mzZy5emV8on' },
+    })
+    // ？？？？Forbiddなのになんでステータスコードが200で返ってくるんだ！！！！！！？？？？？
+    if (!response.data.result) {
+      return dispatch(
+        changePrefectures.failed({
+          params: {},
+          error: response.data.message,
+        }),
+      )
+    }
 
-  console.log(response.data.result)
-  if (response.data.result) {
     return dispatch(
       changePrefectures.done({
         params: {},
         result: { prefectures: response.data.result },
       }),
     )
+  } catch (error) {
+    return dispatch(
+      changePrefectures.failed({
+        params: {},
+        error: error,
+      }),
+    )
   }
-  return dispatch(
-    changePrefectures.done({
-      params: {},
-      result: { prefectures: response.data.result },
-    }),
-  )
 }

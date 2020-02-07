@@ -58,9 +58,9 @@ Props) => {
         <div>
           <div style={{ height: '300px', overflowY: 'scroll' }}>
             {resas.prefectures.length > 0 &&
-              resas.prefectures.map(prefecture => {
-                return <div key={prefecture.prefCode}>{prefecture.prefName || 'a'}</div>
-              })}
+              resas.prefectures.map(prefecture => (
+                <div key={prefecture.prefCode}>{prefecture.prefName || 'a'}</div>
+              ))}
           </div>
           <Button label="Resasからデータ取得" onClick={onClickResasDataFetchButton}></Button>
         </div>
