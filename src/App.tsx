@@ -1,9 +1,7 @@
 import React, { MouseEvent, useEffect } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import styled from 'styled-components'
 
-import * as io from "socket.io-client"
 import { WsSubscribers } from "./services/WsSubscriber"
 import { UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
@@ -33,7 +31,7 @@ const App: React.FC<Props> = (props: Props) => {
     })
   }, [])
 
-  const { game, players: {
+  const { players: {
     orange = [],
     blue = [],
   } } = props.rocketleague
@@ -45,8 +43,15 @@ const App: React.FC<Props> = (props: Props) => {
           {orange.map(player => {
             return (
               <div className="player" key={player.id}>
-                <div className="player_name">{player.name}</div>
-                <div className="player_boost">{player.boost}</div>
+                <Text
+                  text={player.name}
+                  color={Color.WHITE}
+                  style={styles.playerName} />
+
+                <Text
+                  text={player.boost.toString()}
+                  color={Color.WHITE}
+                  style={styles.playerBoost} />
                 <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
               </div>
             )
@@ -56,8 +61,15 @@ const App: React.FC<Props> = (props: Props) => {
           {blue.map(player => {
             return (
               <div className="player" key={player.id}>
-                <div className="player_name">{player.name}</div>
-                <div className="player_boost">{player.boost}</div>
+                <Text
+                  text={player.name}
+                  color={Color.WHITE}
+                  style={styles.playerName} />
+
+                <Text
+                  text={player.boost.toString()}
+                  color={Color.WHITE}
+                  style={styles.playerBoost} />
                 <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
               </div>
             )
@@ -66,6 +78,20 @@ const App: React.FC<Props> = (props: Props) => {
       </div>
     </div>
   )
+}
+
+const styles = {
+  playerName: {
+    position: 'absolute',
+    top: '5px',
+    left: '6px',
+    fontWeight: 'bold'
+  },
+  playerBoost: {
+    position: 'absolute',
+    top: '5px',
+    right: '6px'
+  }
 }
 
 const mapStateToProps = (state: RootState) => {

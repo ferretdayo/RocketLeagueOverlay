@@ -20,20 +20,6 @@
   margin-bottom: 6px;
 }
 
-.player .player_name, .player_boost {
-  color: #ffffff;
-  position: absolute;
-  top: 5px;
-}
-.player .player_boost {
-  right: 6px;
-}
-
-.player .player_name {
-  left: 6px;
-  font-weight: bold;
-}
-
 .player .player_boost_bg {
   height: 30px;
   border-radius: 4px;

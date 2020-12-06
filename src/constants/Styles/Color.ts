@@ -1,7 +1,7 @@
 export enum Color {
-  BASE = '#151515',
-  WHITE = '#FAFAFA',
-  ALERT = '#DF013A',
-  WARN = '#FF8000',
-  GRAY = '#D8D8D8'
+  BASE = '#242424',
+  WHITE = '#ffffff',
+  BLUE = '#4a4dfc',
+  ORANGE = '#eb7f26',
+  TRANS_GRAY = '#242424ab',
 }
