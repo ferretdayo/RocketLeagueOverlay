@@ -1,87 +1,81 @@
-import React, { MouseEvent } from 'react'
+import React, { MouseEvent, useEffect } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import _ from 'lodash'
 import styled from 'styled-components'
 
+import * as io from "socket.io-client"
+import { WsSubscribers } from "./services/WsSubscriber"
+import { UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
 import Button from './components/atoms/Buttons/Button'
 import Text from './components/atoms/Texts/Text'
 import Title from './components/atoms/Texts/TitleText'
 import { Color } from './constants/Styles/Color'
 import { RootState } from './redux/stores'
-import { increment, decrement } from './redux/stores/counter/actions'
-import { syncChangePrefectures } from './redux/stores/resas/actions'
-import { CounterState } from './redux/stores/counter/types'
-import { ResasState } from './redux/stores/resas/types'
+import { updateGameState } from './redux/stores/rocketleague/actions'
+import { RocketLeagueState } from './redux/stores/rocketleague/types'
 
 type Props = {
-  counter: CounterState
-  resas: ResasState
-  increment: (count: number) => void
-  decrement: (count: number) => void
-  syncChangePrefectures: () => Promise<void>
+  rocketleague: RocketLeagueState
+  updateGameState: (gameState: UpdateGameType) => void
 }
 
-const App: React.FC<Props> = ({
-  counter = {
-    counter: {
-      count: 0,
-      date: moment().toDate(),
-    },
-  },
-  resas = {
-    prefectures: [],
-  },
-  increment = (count: number) => {},
-  decrement = (count: number) => {},
-  syncChangePrefectures = () => new Promise(_.noop),
-}: Props) => {
-  const { count, date } = counter.counter
+const App: React.FC<Props> = (props: Props) => {
+  useEffect(() => {
+    WsSubscribers.init(49322, false, [
+      "game:update_tick",
+      "cb:heartbeat"
+    ])
+    const { updateGameState } = props
+    WsSubscribers.subscribe("game", "update_state", (data: UpdateGameType) => {
+      updateGameState(data)
+      console.log(data)
+    })
+  }, [])
 
-  const onClickIncrementButton = (e: MouseEvent<HTMLButtonElement>) => increment(count + 1)
-  const onClickDecrementButton = (e: MouseEvent<HTMLButtonElement>) => decrement(count - 1)
-  const onClickResasDataFetchButton = (e: MouseEvent<HTMLButtonElement>) => syncChangePrefectures()
+  const { game, players: {
+    orange = [],
+    blue = [],
+  } } = props.rocketleague
 
   return (
     <div className="App">
-      <header className="App-header">
-        <Title text={'カウンターアプリ'} color={Color.WHITE}></Title>
-        <Text text={count.toString()} color={Color.WHITE}></Text>
-        <Text text={date.toLocaleString()}></Text>
-        <FlexContainer>
-          <Button label="引くよ！押して！" onClick={onClickDecrementButton}></Button>
-          <Button label="足すよ！押して！" onClick={onClickIncrementButton}></Button>
-        </FlexContainer>
-        <div>
-          <div style={{ height: '300px', overflowY: 'scroll' }}>
-            {resas.prefectures.length > 0 &&
-              resas.prefectures.map(prefecture => (
-                <div key={prefecture.prefCode}>{prefecture.prefName || 'a'}</div>
-              ))}
-          </div>
-          <Button label="Resasからデータ取得" onClick={onClickResasDataFetchButton}></Button>
+      <div className="players_boost">
+        <div className="teamA">
+          {orange.map(player => {
+            return (
+              <div className="player" key={player.id}>
+                <div className="player_name">{player.name}</div>
+                <div className="player_boost">{player.boost}</div>
+                <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
+              </div>
+            )
+          })}
         </div>
-      </header>
+        <div className="teamB">
+          {blue.map(player => {
+            return (
+              <div className="player" key={player.id}>
+                <div className="player_name">{player.name}</div>
+                <div className="player_boost">{player.boost}</div>
+                <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
 
-const FlexContainer = styled.div`
-  display: flex;
-`
-
 const mapStateToProps = (state: RootState) => {
   return {
-    counter: state.counter,
-    resas: state.resas,
+    rocketleague: state.rocketleague,
   }
 }
 
 const mapDispatchToProps = {
-  increment,
-  decrement,
-  syncChangePrefectures,
+  updateGameState
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

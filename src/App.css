@@ -1,22 +1,46 @@
-.App {
-  text-align: center;
+.players_boost {
+  position: relative;
+}
+.teamA, .teamB {
+  position: absolute;
+  width: 160px;
+}
+.teamA {
+  left: 6px;
+  top: 40vh;
+}
+.teamB {
+  right: 6px;
+  top: 40vh;
+}
+.player {
+  position: relative;
+  background-color: #242424ab;
+  border-radius: 4px;
+  margin-bottom: 6px;
 }
 
-.App-logo {
-  height: 40vmin;
+.player .player_name, .player_boost {
+  color: #ffffff;
+  position: absolute;
+  top: 5px;
+}
+.player .player_boost {
+  right: 6px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.player .player_name {
+  left: 6px;
+  font-weight: bold;
 }
 
-.App-link {
-  color: #09d3ac;
+.player .player_boost_bg {
+  height: 30px;
+  border-radius: 4px;
+}
+.teamA .player_boost_bg {
+  background-color: #4a4dfc;
+}
+.teamB .player_boost_bg {
+  background-color: #eb7f26;
 }
