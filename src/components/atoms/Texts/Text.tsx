@@ -7,7 +7,7 @@ type TextProps = {
   readonly text: string
   readonly color?: Color
   readonly size?: FontSize
-  readonly style: object
+  readonly style?: object
 }
 
 const Text: React.FC<TextProps> = ({ text, color = Color.BASE, size = FontSize.SIZE16, style = {} }: TextProps) => (

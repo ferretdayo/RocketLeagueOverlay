@@ -13,20 +13,3 @@
   right: 6px;
   top: 40vh;
 }
-.player {
-  position: relative;
-  background-color: #242424ab;
-  border-radius: 4px;
-  margin-bottom: 6px;
-}
-
-.player .player_boost_bg {
-  height: 30px;
-  border-radius: 4px;
-}
-.teamA .player_boost_bg {
-  background-color: #4a4dfc;
-}
-.teamB .player_boost_bg {
-  background-color: #eb7f26;
-}

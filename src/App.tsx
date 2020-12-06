@@ -5,13 +5,11 @@ import _ from 'lodash'
 import { WsSubscribers } from "./services/WsSubscriber"
 import { UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
-import Button from './components/atoms/Buttons/Button'
-import Text from './components/atoms/Texts/Text'
-import Title from './components/atoms/Texts/TitleText'
 import { Color } from './constants/Styles/Color'
 import { RootState } from './redux/stores'
 import { updateGameState } from './redux/stores/rocketleague/actions'
 import { RocketLeagueState } from './redux/stores/rocketleague/types'
+import PlayersBoost from './components/organisms/PlayersBoost'
 
 type Props = {
   rocketleague: RocketLeagueState
@@ -40,40 +38,10 @@ const App: React.FC<Props> = (props: Props) => {
     <div className="App">
       <div className="players_boost">
         <div className="teamA">
-          {orange.map(player => {
-            return (
-              <div className="player" key={player.id}>
-                <Text
-                  text={player.name}
-                  color={Color.WHITE}
-                  style={styles.playerName} />
-
-                <Text
-                  text={player.boost.toString()}
-                  color={Color.WHITE}
-                  style={styles.playerBoost} />
-                <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
-              </div>
-            )
-          })}
+          <PlayersBoost players={orange} teamColor={Color.ORANGE} />
         </div>
         <div className="teamB">
-          {blue.map(player => {
-            return (
-              <div className="player" key={player.id}>
-                <Text
-                  text={player.name}
-                  color={Color.WHITE}
-                  style={styles.playerName} />
-
-                <Text
-                  text={player.boost.toString()}
-                  color={Color.WHITE}
-                  style={styles.playerBoost} />
-                <div className="player_boost_bg" style={{ width: player.boost + "%" }}></div>
-              </div>
-            )
-          })}
+          <PlayersBoost players={blue} teamColor={Color.BLUE} />
         </div>
       </div>
     </div>
