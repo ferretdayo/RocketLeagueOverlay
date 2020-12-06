@@ -1,7 +1,8 @@
-import React, { MouseEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
+import styled from 'styled-components'
 import { WsSubscribers } from "./services/WsSubscriber"
 import { UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
@@ -36,31 +37,38 @@ const App: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="App">
-      <div className="players_boost">
-        <div className="teamA">
+      <StyledPlayersBoostDiv>
+        <StyledTeamA>
           <PlayersBoost players={orange} teamColor={Color.ORANGE} />
-        </div>
-        <div className="teamB">
+        </StyledTeamA>
+        <StyledTeamB>
           <PlayersBoost players={blue} teamColor={Color.BLUE} />
-        </div>
-      </div>
+        </StyledTeamB>
+      </StyledPlayersBoostDiv>
     </div>
   )
 }
 
-const styles = {
-  playerName: {
-    position: 'absolute',
-    top: '5px',
-    left: '6px',
-    fontWeight: 'bold'
-  },
-  playerBoost: {
-    position: 'absolute',
-    top: '5px',
-    right: '6px'
-  }
+type StyledDivProps = {
 }
+
+const StyledTeamA = styled.div<StyledDivProps>`
+  position: absolute;
+  width: 160px;
+  left: 6px;
+  top: 40vh;
+`
+
+const StyledTeamB = styled.div<StyledDivProps>`
+  position: absolute;
+  width: 160px;
+  right: 6px;
+  top: 40vh;
+`
+
+const StyledPlayersBoostDiv = styled.div<StyledDivProps>`
+  position: relative;
+`
 
 const mapStateToProps = (state: RootState) => {
   return {
