@@ -1,3 +1,6 @@
+import { GameStatus } from "../../../constants/RocketLeague/Team";
+import { StatfeedEventType } from "../../../types/RocketLeagueType";
+
 export interface Counter {
   count: number
   date: Date
@@ -51,4 +54,10 @@ export interface RocketLeagueState {
     blue: PlayerStatus[],
     orange: PlayerStatus[]
   };
+  goalScored: boolean;
+  statfeedEvent: StatfeedEventType;
+  isGoal: boolean;
+  hasCreatedReplay: boolean;
+  winnerTeam: number;
+  gameStatus: GameStatus;
 }

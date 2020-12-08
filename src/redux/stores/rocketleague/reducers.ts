@@ -1,15 +1,13 @@
-import moment from 'moment'
 import { reducerWithInitialState } from 'typescript-fsa-reducers/dist'
 
-import { RocketLeagueState, PlayerStatus } from './types'
+import { RocketLeagueState } from './types'
 import {
   updateGameState,
   matchCreated,
   initialized,
-  preCountdownBegin,
+  playing,
   postCountdownBegin,
   statfeedEvent,
-  goalScored,
   replayStart,
   replayWillEnd,
   replayEnd,
@@ -17,9 +15,8 @@ import {
   podiumStart,
   replayCreated
 } from './actions'
-import { UpdateGameType } from '../../../types/RocketLeagueType'
-import { platform } from 'os'
-import { Team } from '../../../constants/RocketLeague/Team'
+import { MatchEndType, StatfeedEventType, UpdateGameType } from '../../../types/RocketLeagueType'
+import { GameStatus, Team } from '../../../constants/RocketLeague/Team'
 
 export const initialState: RocketLeagueState = {
   event: "",
@@ -49,6 +46,22 @@ export const initialState: RocketLeagueState = {
     blue: [],
     orange: [],
   },
+  goalScored: false,
+  statfeedEvent: {
+    main_target: {
+      id: "",
+      name: "",
+    },
+    secondary_target: {
+      id: "",
+      name: "",
+    },
+    type: ""
+  },
+  isGoal: false,
+  hasCreatedReplay: false,
+  winnerTeam: -1,
+  gameStatus: GameStatus.DontPlaying
 }
 
 export const rocketleagueReducer = reducerWithInitialState(initialState)
@@ -73,5 +86,71 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
         teams: { blue, orange }
       },
       players: { blue: bluePlayers, orange: orangePlayers }
+    }
+  })
+  .case(matchCreated, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.DontPlaying
+    }
+  })
+  .case(initialized, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.Initialize
+    }
+  })
+  .case(playing, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.Playing
+    }
+  })
+  .case(postCountdownBegin, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.CountDown
+    }
+  })
+  .case(statfeedEvent, (state: RocketLeagueState, payload: StatfeedEventType): RocketLeagueState => {
+    return {
+      ...state,
+      statfeedEvent: payload
+    }
+  })
+  .case(replayStart, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.Replaying
+    }
+  })
+  .case(replayWillEnd, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+    }
+  })
+  .case(replayEnd, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.Playing
+    }
+  })
+  .case(matchEnded, (state: RocketLeagueState, payload: MatchEndType): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.MatchEnded,
+      winnerTeam: payload.winner_team_num
+    }
+  })
+  .case(podiumStart, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      gameStatus: GameStatus.PodiumStarting
+    }
+  })
+  .case(replayCreated, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
+    return {
+      ...state,
+      hasCreatedReplay: payload
     }
   })

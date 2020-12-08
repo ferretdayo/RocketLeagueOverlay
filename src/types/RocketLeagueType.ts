@@ -40,3 +40,19 @@ export type UpdateGameType = {
     };
   };
 }
+
+export type StatfeedEventType = {
+  main_target: {
+    id: string;
+    name: string;
+  };
+  secondary_target: {
+    id: string;
+    name: string;
+  };
+  type: string;
+}
+
+export type MatchEndType = {
+  winner_team_num: number;
+}
