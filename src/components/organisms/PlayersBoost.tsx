@@ -6,16 +6,18 @@ import PlayerBoost from '../../components/molecules/PlayerBoost/PlayerBoost'
 
 type Props = {
   readonly players: PlayerStatus[]
+  readonly targetPlayer: string
   readonly teamColor: Color
 }
 
-const PlayersBoost: React.FC<Props> = ({ players = [], teamColor = Color.BLUE }: Props) => {
+const PlayersBoost: React.FC<Props> = ({ players = [], targetPlayer = "", teamColor = Color.BLUE }: Props) => {
   return (
     <>
       {players.map((player: PlayerStatus) => {
         return (
           <PlayerBoost
             playerInfo={player}
+            targetPlayer={targetPlayer}
             boostColor={teamColor}
           />
         )

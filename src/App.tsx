@@ -109,19 +109,25 @@ const App: React.FC<Props> = (props: Props) => {
     })
   }, [])
 
-  const { players: {
-    orange = [],
-    blue = [],
-  } } = props.rocketleague
+  const {
+    game: {
+      target = '',
+      teams = []
+    },
+    players: {
+      orange = [],
+      blue = [],
+    }
+  } = props.rocketleague
 
   return (
     <div className="App">
       <StyledPlayersBoostDiv>
         <StyledTeamA>
-          <PlayersBoost players={orange} teamColor={Color.ORANGE} />
+          <PlayersBoost players={orange} targetPlayer={target} teamColor={Color.ORANGE} />
         </StyledTeamA>
         <StyledTeamB>
-          <PlayersBoost players={blue} teamColor={Color.BLUE} />
+          <PlayersBoost players={blue} targetPlayer={target} teamColor={Color.BLUE} />
         </StyledTeamB>
       </StyledPlayersBoostDiv>
     </div>
