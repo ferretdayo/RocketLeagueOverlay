@@ -81,6 +81,7 @@ const StyledDiv = styled.div<StyledDivProps>`
 const StyledDivBoost = styled.div<StyledDivBoostProps>`
   height: 36px;
   border-radius: 6px;
+  transition: 0.5s;
   background-color: ${props => props.backgroundColor};
   width: ${props => props.boostWidth};
   ${props => ({ ...props.style })};
