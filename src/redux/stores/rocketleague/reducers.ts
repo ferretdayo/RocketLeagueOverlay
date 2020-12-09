@@ -16,7 +16,8 @@ import {
   replayCreated
 } from './actions'
 import { MatchEndType, StatfeedEventType, UpdateGameType } from '../../../types/RocketLeagueType'
-import { GameStatus, Team } from '../../../constants/RocketLeague/Team'
+import { Team } from '../../../constants/RocketLeague/Team'
+import { GameStatus } from '../../../constants/RocketLeague/GameStatus'
 
 export const initialState: RocketLeagueState = {
   event: "",

@@ -18,7 +18,7 @@ const PlayersBoost: React.FC<Props> = ({ players = [], targetPlayer = "", teamCo
           <PlayerBoost
             playerInfo={player}
             targetPlayer={targetPlayer}
-            boostColor={teamColor}
+            teamColor={teamColor}
           />
         )
       })}

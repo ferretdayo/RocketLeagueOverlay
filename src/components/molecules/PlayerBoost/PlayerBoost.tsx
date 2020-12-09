@@ -3,29 +3,44 @@ import styled from 'styled-components'
 import Text from '../../atoms/Texts/Text'
 import { Color } from '../../../constants/Styles/Color'
 import { PlayerStatus } from '../../../redux/stores/rocketleague/types'
+import { MAX_PLAYER_NAME_LENGTH } from '../../../constants/RocketLeague/Misc'
 
 type Props = {
   readonly playerInfo: PlayerStatus
   readonly targetPlayer: string
-  readonly boostColor?: Color
+  readonly teamColor?: Color
   readonly style?: object
 }
 
-const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, boostColor = Color.BLUE, style = {} }: Props) => (
-  <div key={playerInfo.id}>
-    <StyledDiv active={playerInfo.id === targetPlayer ? styles.targetPlayer : {}}>
-      <Text
-        text={playerInfo.name}
-        color={Color.WHITE}
-        style={styles.playerName} />
-      <Text
-        text={playerInfo.boost.toString()}
-        color={Color.WHITE}
-        style={styles.playerBoost} />
-      <StyledDivBoost backgroundColor={boostColor} boostWidth={playerInfo.boost + "%"} style={style}></StyledDivBoost>
-    </StyledDiv>
-  </div>
-)
+const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Color.BLUE, style = {} }: Props) => {
+  let playerNamePosition: any = {}
+  let boostNumberPosition: any = {}
+  let boostPosition: any = {}
+  if (teamColor === Color.BLUE) {
+    playerNamePosition.right = '6px'
+    boostNumberPosition.left = '6px'
+    boostPosition.margin = '0 0 0 auto'
+  } else {
+    playerNamePosition.left = '6px'
+    boostNumberPosition.right = '6px'
+  }
+
+  return (
+    <div key={playerInfo.id}>
+      <StyledDiv active={playerInfo.id === targetPlayer ? styles.targetPlayer : {}}>
+        <Text
+          text={playerInfo.name.length > MAX_PLAYER_NAME_LENGTH ? `${playerInfo.name.substr(0, MAX_PLAYER_NAME_LENGTH)}...` : playerInfo.name}
+          color={Color.WHITE}
+          style={{ ...styles.playerName, ...playerNamePosition }} />
+        <Text
+          text={playerInfo.boost.toString()}
+          color={Color.WHITE}
+          style={{ ...styles.playerBoost, ...boostNumberPosition }} />
+        <StyledDivBoost backgroundColor={teamColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
+      </StyledDiv>
+    </div>
+  )
+}
 
 export default PlayerBoost
 
@@ -33,18 +48,16 @@ const styles = {
   playerName: {
     position: 'absolute',
     top: '6px',
-    left: '6px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    letterSpacing: '1px'
   },
   playerBoost: {
     position: 'absolute',
     top: '6px',
-    right: '6px'
+    fontWeight: 'bold'
   },
   targetPlayer: {
-    borderColor: 'red',
-    borderStyle: 'solid',
-    borderWidth: '4px'
+    boxShadow: '0 0 4px 4px rgb(255, 255, 255, 0.4)'
   }
 }
 
@@ -60,14 +73,14 @@ type StyledDivBoostProps = {
 
 const StyledDiv = styled.div<StyledDivProps>`
   position: relative;
-  background-color: #242424ab;
-  border-radius: 4px;
+  background-color: #24242490;
+  border-radius: 6px;
   margin-bottom: 6px;
   ${props => ({ ...props.active })};
 `
 const StyledDivBoost = styled.div<StyledDivBoostProps>`
   height: 36px;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: ${props => props.backgroundColor};
   width: ${props => props.boostWidth};
   ${props => ({ ...props.style })};

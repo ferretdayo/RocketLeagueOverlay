@@ -1,4 +1,4 @@
-import { GameStatus } from "../../../constants/RocketLeague/Team";
+import { GameStatus } from '../../../constants/RocketLeague/GameStatus'
 import { StatfeedEventType } from "../../../types/RocketLeagueType";
 
 export interface Counter {
