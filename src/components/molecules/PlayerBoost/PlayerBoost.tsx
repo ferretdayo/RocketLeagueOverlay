@@ -17,12 +17,12 @@ const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Co
   let boostNumberPosition: any = {}
   let boostPosition: any = {}
   if (teamColor === Color.BLUE) {
-    playerNamePosition.right = '6px'
-    boostNumberPosition.left = '6px'
-    boostPosition.margin = '0 0 0 auto'
-  } else {
     playerNamePosition.left = '6px'
     boostNumberPosition.right = '6px'
+    boostPosition.margin = '0 0 0 auto'
+  } else {
+    playerNamePosition.right = '6px'
+    boostNumberPosition.left = '6px'
   }
 
   return (
@@ -47,13 +47,13 @@ export default PlayerBoost
 const styles = {
   playerName: {
     position: 'absolute',
-    top: '6px',
+    top: '7px',
     fontWeight: 'bold',
     letterSpacing: '1px'
   },
   playerBoost: {
     position: 'absolute',
-    top: '6px',
+    top: '7px',
     fontWeight: 'bold'
   },
   targetPlayer: {

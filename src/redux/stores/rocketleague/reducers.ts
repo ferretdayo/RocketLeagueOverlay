@@ -30,11 +30,11 @@ export const initialState: RocketLeagueState = {
     isReplay: false,
     target: "",
     teams: {
-      blue: {
+      "0": {
         name: "",
         score: 0,
       },
-      orange: {
+      "1": {
         name: "",
         score: 0,
       },
@@ -62,14 +62,11 @@ export const initialState: RocketLeagueState = {
   isGoal: false,
   hasCreatedReplay: false,
   winnerTeam: -1,
-  gameStatus: GameStatus.DontPlaying
+  gameStatus: -1
 }
 
 export const rocketleagueReducer = reducerWithInitialState(initialState)
   .case(updateGameState, (state: RocketLeagueState, payload: UpdateGameType): RocketLeagueState => {
-    const blue = payload.game.teams[Team.BLUE]
-    const orange = payload.game.teams[Team.ORANGE]
-
     const bluePlayers = []
     const orangePlayers = []
     for (let player in payload.players) {
@@ -82,10 +79,7 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
 
     return {
       ...state,
-      ...payload, game: {
-        ...payload.game,
-        teams: { blue, orange }
-      },
+      ...payload,
       players: { blue: bluePlayers, orange: orangePlayers }
     }
   })

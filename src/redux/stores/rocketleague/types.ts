@@ -37,11 +37,7 @@ export interface RocketLeagueState {
     isReplay: boolean;
     target: string;
     teams: {
-      blue: {
-        name: string;
-        score: number;
-      };
-      orange: {
+      [index: number]: {
         name: string;
         score: number;
       };
