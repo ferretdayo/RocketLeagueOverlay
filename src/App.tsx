@@ -26,6 +26,7 @@ import { PlayerStatus, RocketLeagueState } from './redux/stores/rocketleague/typ
 import PlayersBoost from './components/organisms/PlayersBoost'
 import { GameStatus } from './constants/RocketLeague/GameStatus'
 import { Team } from './constants/RocketLeague/Team'
+import { url } from 'inspector'
 
 type Props = {
   rocketleague: RocketLeagueState
@@ -131,21 +132,16 @@ const App: React.FC<Props> = (props: Props) => {
     <div className="App">
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginRight: '4px' }}>
-              {teams[Team.BLUE].name}
-              プリマカメラード
-              </div>
-            <div style={{ fontSize: '40px', fontWeight: 'bold', color: Color.LIGHT_BLUE, padding: '4px 16px 0', backgroundColor: '#242424a0' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', backgroundImage: "url('./images/title.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', marginTop: '6px' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.LIGHT_BLUE, padding: '2px 6px 0 16px' }}>
               {teams[Team.BLUE].score}
             </div>
-            <div style={{ fontSize: '40px', fontWeight: 'bold', letterSpacing: '4px', color: 'white', padding: '4px 10px 0', backgroundColor: '#242424a0' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '2px 10px 0' }}>
               {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
             </div>
-            <div style={{ fontSize: '40px', fontWeight: 'bold', color: Color.ORANGE, padding: '4px 16px 0', backgroundColor: '#242424a0' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '2px 16px 0 6px' }}>
               {teams[Team.ORANGE].score}
             </div>
-            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginLeft: '4px' }}>{teams[Team.ORANGE].name}</div>
           </div>
           <StyledPlayersBoostDiv>
             <StyledTeamA>
