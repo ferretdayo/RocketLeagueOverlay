@@ -1,1 +1,1 @@
-export const MAX_PLAYER_NAME_LENGTH = 11
+export const MAX_PLAYER_NAME_LENGTH = 16
