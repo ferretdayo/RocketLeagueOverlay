@@ -26,7 +26,7 @@ import { PlayerStatus, RocketLeagueState } from './redux/stores/rocketleague/typ
 import PlayersBoost from './components/organisms/PlayersBoost'
 import { GameStatus } from './constants/RocketLeague/GameStatus'
 import { Team } from './constants/RocketLeague/Team'
-import { url } from 'inspector'
+import { FontSize } from './constants/Styles/FontSize'
 
 type Props = {
   rocketleague: RocketLeagueState
@@ -126,20 +126,20 @@ const App: React.FC<Props> = (props: Props) => {
   }: RocketLeagueState = props.rocketleague
 
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
-  const targetPlayerNameColor = targetPlayer?.team === Team.BLUE ? Color.LIGHT_BLUE : Color.ORANGE
+  const targetPlayerColor = targetPlayer?.team === Team.BLUE ? Color.BLUE : Color.ORANGE
 
   return (
     <div className="App">
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
           <div style={{ display: 'flex', justifyContent: 'center', backgroundImage: "url('./images/title.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', marginTop: '6px' }}>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.LIGHT_BLUE, padding: '2px 6px 0 16px' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.BLUE, padding: '2px 0 0 16px' }}>
               {teams[Team.BLUE].score}
             </div>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '2px 10px 0' }}>
+            <div style={{ fontSize: '34px', textAlign: 'center', width: '160px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '4px 10px 0' }}>
               {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
             </div>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '2px 16px 0 6px' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '2px 16px 0 0' }}>
               {teams[Team.ORANGE].score}
             </div>
           </div>
@@ -153,26 +153,30 @@ const App: React.FC<Props> = (props: Props) => {
           </StyledPlayersBoostDiv>
           {targetPlayer && (
             <div style={{ width: '400px', borderRadius: '6px', padding: '4px 8px', backgroundColor: "#24242490", position: 'absolute', bottom: '10px', left: 0, right: 0, margin: 'auto' }}>
-              <div style={{ fontWeight: 'bold', fontSize: '24px', textAlign: 'center', color: targetPlayerNameColor }}>{targetPlayer?.name}</div>
+              <div style={{ fontWeight: 'bold', fontSize: '24px', textAlign: 'center', color: targetPlayerColor }}>{targetPlayer?.name}</div>
+              <div style={{ position: 'relative', width: "100%", height: '20px', backgroundColor: Color.TRANS_GRAY, margin: '4px 0', borderRadius: '4px' }}>
+                <div style={{ position: 'absolute', top: 0, width: targetPlayer.boost + "%", height: '20px', backgroundColor: targetPlayerColor, transition: '0.4s', borderRadius: '4px' }}></div>
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: Color.WHITE }}>{targetPlayer.boost}</div>
+              </div>
               <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', color: 'white' }}>
                 <div>
-                  <div style={{ fontWeight: 'bold', fontSize: '16px' }}>SCORE</div>
+                  <div style={{ fontWeight: 'bold', fontSize: FontSize.SIZE14 }}>SCORE</div>
                   <div style={{ fontSize: '16px' }}>{targetPlayer.score}</div>
                 </div>
                 <div>
-                  <div style={{ fontWeight: 'bold', fontSize: '16px' }}>GOALS</div>
+                  <div style={{ fontWeight: 'bold', fontSize: FontSize.SIZE14 }}>GOALS</div>
                   <div style={{ fontSize: '16px' }}>{targetPlayer.goals}</div>
                 </div>
                 <div>
-                  <div style={{ fontWeight: 'bold', fontSize: '16px' }}>SHOTS</div>
+                  <div style={{ fontWeight: 'bold', fontSize: FontSize.SIZE14 }}>SHOTS</div>
                   <div style={{ fontSize: '16px' }}>{targetPlayer.shots}</div>
                 </div>
                 <div>
-                  <div style={{ fontWeight: 'bold', fontSize: '16px' }}>ASSISTS</div>
+                  <div style={{ fontWeight: 'bold', fontSize: FontSize.SIZE14 }}>ASSISTS</div>
                   <div style={{ fontSize: '16px' }}>{targetPlayer.assists}</div>
                 </div>
                 <div>
-                  <div style={{ fontWeight: 'bold', fontSize: '16px' }}>SAVES</div>
+                  <div style={{ fontWeight: 'bold', fontSize: FontSize.SIZE14 }}>SAVES</div>
                   <div style={{ fontSize: '16px' }}>{targetPlayer.saves}</div>
                 </div>
               </div>
@@ -189,7 +193,7 @@ type StyledDivProps = {
 
 const StyledTeamA = styled.div<StyledDivProps>`
   position: absolute;
-  width: 160px;
+  width: 200px;
   left: 6px;
   top: 60vh;
   bottom: 10px;
@@ -197,7 +201,7 @@ const StyledTeamA = styled.div<StyledDivProps>`
 
 const StyledTeamB = styled.div<StyledDivProps>`
   position: absolute;
-  width: 160px;
+  width: 200px;
   right: 6px;
   top: 60vh;
 `

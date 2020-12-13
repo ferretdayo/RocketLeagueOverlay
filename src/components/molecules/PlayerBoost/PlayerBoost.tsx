@@ -4,6 +4,7 @@ import Text from '../../atoms/Texts/Text'
 import { Color } from '../../../constants/Styles/Color'
 import { PlayerStatus } from '../../../redux/stores/rocketleague/types'
 import { MAX_PLAYER_NAME_LENGTH } from '../../../constants/RocketLeague/Misc'
+import { FontSize } from '../../../constants/Styles/FontSize'
 
 type Props = {
   readonly playerInfo: PlayerStatus
@@ -31,10 +32,12 @@ const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Co
         <Text
           text={playerInfo.name.length > MAX_PLAYER_NAME_LENGTH ? `${playerInfo.name.substr(0, MAX_PLAYER_NAME_LENGTH)}...` : playerInfo.name}
           color={Color.WHITE}
+          size={FontSize.SIZE12}
           style={{ ...styles.playerName, ...playerNamePosition }} />
         <Text
           text={playerInfo.boost.toString()}
           color={Color.WHITE}
+          size={FontSize.SIZE12}
           style={{ ...styles.playerBoost, ...boostNumberPosition }} />
         <StyledDivBoost backgroundColor={teamColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
       </StyledDiv>
@@ -47,13 +50,13 @@ export default PlayerBoost
 const styles = {
   playerName: {
     position: 'absolute',
-    top: '7px',
+    top: '11px',
     fontWeight: 'bold',
     letterSpacing: '1px'
   },
   playerBoost: {
     position: 'absolute',
-    top: '7px',
+    top: '11px',
     fontWeight: 'bold'
   },
   targetPlayer: {
