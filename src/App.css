@@ -1,3 +1,26 @@
 body {
-  font-family: "Barlow";
+  /* font-family: 'RenogareSoft-Regular', sans-serif; */
+  /* font-family: 'Barlow SemiBold', sans-serif; */
+  /* font-family: 'Days-One', sans-serif; */
+  font-family: 'ConthraxSb-Regular', sans-serif;
+}
+
+@font-face {
+  font-family: 'RenogareSoft-Regular';
+    src:  url('fonts/RenogareSoft-Regular.ttf.woff') format('woff'),
+    url('fonts/RenogareSoft-Regular.ttf.svg#RenogareSoft-Regular') format('svg'); 
+    font-weight: normal;
+    font-style: normal;
+
+  font-family: 'Days-One';
+    src:  url('fonts/Days-One.ttf.woff') format('woff'),
+    url('fonts/Days-One.ttf.svg#Days-One') format('svg'); 
+    font-weight: normal;
+    font-style: normal;
+
+  font-family: 'ConthraxSb-Regular';
+    src:  url('fonts/ConthraxSb-Regular.ttf.woff') format('woff'),
+    url('fonts/ConthraxSb-Regular.ttf.svg#ConthraxSb-Regular') format('svg'); 
+    font-weight: normal;
+    font-style: normal;
 }

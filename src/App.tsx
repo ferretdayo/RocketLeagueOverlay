@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import _, { toInteger } from 'lodash'
+import _ from 'lodash'
 
-import moment from 'moment'
 import styled from 'styled-components'
 import { WsSubscribers } from "./services/WsSubscriber"
 import { MatchEndType, StatfeedEventType, UpdateGameType } from "./types/RocketLeagueType"
@@ -125,7 +124,7 @@ const App: React.FC<Props> = (props: Props) => {
     gameStatus = GameStatus.DontPlaying
   }: RocketLeagueState = props.rocketleague
 
-  const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id == target)
+  const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
   const targetPlayerNameColor = targetPlayer?.team === Team.BLUE ? Color.LIGHT_BLUE : Color.ORANGE
 
   return (
@@ -133,15 +132,20 @@ const App: React.FC<Props> = (props: Props) => {
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginRight: '4px' }}></div>
+            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginRight: '4px' }}>
+              {teams[Team.BLUE].name}
+              プリマカメラード
+              </div>
             <div style={{ fontSize: '40px', fontWeight: 'bold', color: Color.LIGHT_BLUE, padding: '4px 16px 0', backgroundColor: '#242424a0' }}>
               {teams[Team.BLUE].score}
             </div>
-            <div style={{ fontSize: '40px', fontWeight: 'bold', letterSpacing: '4px', color: 'white', padding: '4px 10px 0', backgroundColor: '#242424a0' }}>{toInteger(time / 60)}:{(toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}</div>
+            <div style={{ fontSize: '40px', fontWeight: 'bold', letterSpacing: '4px', color: 'white', padding: '4px 10px 0', backgroundColor: '#242424a0' }}>
+              {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
+            </div>
             <div style={{ fontSize: '40px', fontWeight: 'bold', color: Color.ORANGE, padding: '4px 16px 0', backgroundColor: '#242424a0' }}>
               {teams[Team.ORANGE].score}
             </div>
-            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginLeft: '4px' }}></div>
+            <div style={{ backgroundColor: '#242424a0', width: '300px', height: '64px', marginLeft: '4px' }}>{teams[Team.ORANGE].name}</div>
           </div>
           <StyledPlayersBoostDiv>
             <StyledTeamA>
