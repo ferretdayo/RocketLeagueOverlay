@@ -124,7 +124,7 @@ const App: React.FC<Props> = (props: Props) => {
     },
     gameStatus = GameStatus.DontPlaying
   }: RocketLeagueState = props.rocketleague
-  console.log(time);
+
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
   const targetPlayerColor = targetPlayer?.team === Team.BLUE ? Color.BLUE : Color.ORANGE
 
