@@ -20,10 +20,10 @@ const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Co
   if (teamColor === Color.BLUE) {
     playerNamePosition.left = '6px'
     boostNumberPosition.right = '6px'
-    boostPosition.margin = '0 0 0 auto'
   } else {
     playerNamePosition.right = '6px'
     boostNumberPosition.left = '6px'
+    boostPosition.margin = '0 0 0 auto'
   }
 
   return (

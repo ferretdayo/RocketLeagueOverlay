@@ -124,7 +124,7 @@ const App: React.FC<Props> = (props: Props) => {
     },
     gameStatus = GameStatus.DontPlaying
   }: RocketLeagueState = props.rocketleague
-
+  console.log(time);
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
   const targetPlayerColor = targetPlayer?.team === Team.BLUE ? Color.BLUE : Color.ORANGE
 
@@ -132,14 +132,14 @@ const App: React.FC<Props> = (props: Props) => {
     <div className="App">
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
-          <div style={{ display: 'flex', justifyContent: 'center', backgroundImage: "url('./images/title.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', marginTop: '6px' }}>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.BLUE, padding: '2px 0 0 16px' }}>
+          <div style={{ display: 'flex', height: '64px', justifyContent: 'center', backgroundImage: "url('./images/title.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', marginTop: '6px' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.BLUE, padding: '8px 0 0 16px' }}>
               {teams[Team.BLUE].score}
             </div>
-            <div style={{ fontSize: '34px', textAlign: 'center', width: '160px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '4px 10px 0' }}>
+            <div style={{ fontSize: '34px', textAlign: 'center', width: '160px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '10px 10px 0' }}>
               {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
             </div>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '2px 16px 0 0' }}>
+            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '8px 16px 0 0' }}>
               {teams[Team.ORANGE].score}
             </div>
           </div>
