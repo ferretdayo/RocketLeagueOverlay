@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 
 import styled from 'styled-components'
 import { WsSubscribers } from "./services/WsSubscriber"

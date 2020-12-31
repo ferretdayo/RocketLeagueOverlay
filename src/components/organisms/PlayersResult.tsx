@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Color } from '../../constants/Styles/Color'
 import { Team } from '../../constants/RocketLeague/Team'
 import { GameResult } from '../../redux/stores/rocketleague/types'
+import PlayerResult from '../molecules/PlayerResult/PlayerResult'
 
 type Props = {
   readonly gameResult: GameResult
@@ -14,51 +15,23 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
   return (
     <>
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
-        <div style={{width: '40%'}}>
-          <h2 style={{textAlign: 'center'}}>{winner === Team.BLUE.toString() ? 'Winner' : 'Loser'}</h2>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            {gameResult.players.blue.map(bluePlayer => (
-              <div style={{textAlign: 'center', width: `calc(100% / ${gameResult.players.blue.length})`, color: Color.WHITE}}>{bluePlayer.name}</div>
-            ))}
-          </div>
-          <div>
-            {targetColumn.map(column => (
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                {gameResult.players.blue.map(bluePlayer => {
-                  const key = column as keyof typeof bluePlayer
-                  return (
-                    <div style={{textAlign: 'center', width: `calc(100% / ${gameResult.players.blue.length})`, color: Color.WHITE}}>{bluePlayer[key]}</div>
-                  )
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
+        <PlayerResult
+          players={gameResult.players.blue}
+          isWin={false}
+          teamColor={Team.BLUE}
+          targetColumn={targetColumn}
+        />
         <div>
           {targetColumn.map(column => (
-            <div style={{color: Color.WHITE}}>{column.toLocaleUpperCase()}</div>
+            <div key={column} style={{textAlign: 'center', color: Color.WHITE}}>{column.toLocaleUpperCase()}</div>
           ))}
         </div>
-        <div style={{width: '40%'}}>
-          <h2 style={{textAlign: 'center'}}>{winner === Team.ORANGE.toString() ? 'Winner' : 'Loser'}</h2>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            {gameResult.players.orange.map(orangePlayer => (
-              <div style={{textAlign: 'center', width: `calc(100% / ${gameResult.players.orange.length})`, color: Color.WHITE}}>{orangePlayer.name}</div>
-            ))}
-          </div>
-          <div>
-            {targetColumn.map(column => (
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                {gameResult.players.orange.map(orangePlayer => {
-                  const key = column as keyof typeof orangePlayer
-                  return (
-                    <div style={{textAlign: 'center', width: `calc(100% / ${gameResult.players.orange.length})`, color: Color.WHITE}}>{orangePlayer[key]}</div>
-                  )
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
+        <PlayerResult
+          players={gameResult.players.orange}
+          isWin={false}
+          teamColor={Team.ORANGE}
+          targetColumn={targetColumn}
+        />
       </div>
     </>
   )

@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Color } from '../../constants/Styles/Color'
 import { PlayerStatus } from '../../redux/stores/rocketleague/types'
 import PlayerBoost from '../../components/molecules/PlayerBoost/PlayerBoost'
