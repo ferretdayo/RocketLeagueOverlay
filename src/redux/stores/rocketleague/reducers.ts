@@ -62,7 +62,156 @@ export const initialState: RocketLeagueState = {
   isGoal: false,
   hasCreatedReplay: false,
   winnerTeam: -1,
-  gameStatus: -1
+  // gameStatus: -1,
+  gameStatus: GameStatus.MatchEnded,
+  // result: {
+  //   teams: {
+  //     "0": {
+  //       name: "",
+  //       score: 0,
+  //     },
+  //     "1": {
+  //       name: "",
+  //       score: 0,
+  //     },
+  //   },
+  //   players: {
+  //     blue: [],
+  //     orange: [],
+  //   },
+  // }
+  result: {
+    teams: {
+      0: {
+        name: "PrimaKamerad",
+        score: 4
+      },
+      1: {
+        name: "Megane",
+        score: 0
+      },
+    },
+    players: {
+      orange: [
+        {
+          name: "Siolemon77",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 3,
+          hasCar: true,
+          id: "Siolemon77",
+          isDead: false,
+          isSonic: false,
+          primaryID: 3,
+          saves: 1,
+          score: 230,
+          shots: 5,
+          speed: 20,
+          team: 0,
+          touches: 3
+        },
+        {
+          name: "Suncom666",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 1,
+          hasCar: true,
+          id: "Suncom666",
+          isDead: false,
+          isSonic: false,
+          primaryID: 2,
+          saves: 3,
+          score: 130,
+          shots: 1,
+          speed: 20,
+          team: 0,
+          touches: 3
+        },
+        {
+          name: "Livinton_Lorand",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 0,
+          hasCar: true,
+          id: "Livinton_Lorand",
+          isDead: false,
+          isSonic: false,
+          primaryID: 1,
+          saves: 0,
+          score: 150,
+          shots: 3,
+          speed: 20,
+          team: 0,
+          touches: 3
+        }
+      ],
+      blue: [
+        {
+          name: "Ferretdayo",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 3,
+          hasCar: true,
+          id: "ferret",
+          isDead: false,
+          isSonic: false,
+          primaryID: 3,
+          saves: 1,
+          score: 230,
+          shots: 5,
+          speed: 20,
+          team: 0,
+          touches: 3
+        },
+        {
+          name: "ReoNy",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 1,
+          hasCar: true,
+          id: "reony",
+          isDead: false,
+          isSonic: false,
+          primaryID: 2,
+          saves: 3,
+          score: 130,
+          shots: 1,
+          speed: 20,
+          team: 0,
+          touches: 3
+        },
+        {
+          name: "rarumo",
+          assists: 1,
+          attacker: "a",
+          boost: 20,
+          cartouches: 3,
+          goals: 0,
+          hasCar: true,
+          id: "rarumo",
+          isDead: false,
+          isSonic: false,
+          primaryID: 1,
+          saves: 0,
+          score: 150,
+          shots: 3,
+          speed: 20,
+          team: 0,
+          touches: 3
+        }
+      ]
+    }
+  },
 }
 
 export const rocketleagueReducer = reducerWithInitialState(initialState)

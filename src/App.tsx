@@ -7,7 +7,6 @@ import { WsSubscribers } from "./services/WsSubscriber"
 import { MatchEndType, StatfeedEventType, UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
 import { Color } from './constants/Styles/Color'
-import { RootState } from './redux/stores'
 import {
   updateGameState,
   matchCreated,
@@ -24,9 +23,12 @@ import {
 } from './redux/stores/rocketleague/actions'
 import { PlayerStatus, RocketLeagueState } from './redux/stores/rocketleague/types'
 import PlayersBoost from './components/organisms/PlayersBoost'
+import PlayersResult from './components/organisms/PlayersResult'
+import ScoreHeader from './components/molecules/ScoreHeader/ScoreHeader'
 import { GameStatus } from './constants/RocketLeague/GameStatus'
 import { Team } from './constants/RocketLeague/Team'
 import { FontSize } from './constants/Styles/FontSize'
+import { RootState } from './redux/stores'
 
 type Props = {
   rocketleague: RocketLeagueState
@@ -117,12 +119,14 @@ const App: React.FC<Props> = (props: Props) => {
       target = '',
       teams = {},
       time = 0,
+      winner = "",
     },
     players: {
       orange = [],
       blue = [],
     },
-    gameStatus = GameStatus.DontPlaying
+    gameStatus = GameStatus.MatchEnded,
+    result,
   }: RocketLeagueState = props.rocketleague
 
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
@@ -130,19 +134,15 @@ const App: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="App">
+      {gameStatus === GameStatus.MatchEnded && (
+        <>
+          <ScoreHeader teams={teams} time={time} />
+          <PlayersResult gameResult={result} winner={winner} />
+        </>
+      )}
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
-          <div style={{ display: 'flex', height: '64px', justifyContent: 'center', backgroundImage: "url('./images/title.png')", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', marginTop: '6px' }}>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.BLUE, padding: '8px 0 0 16px' }}>
-              {teams[Team.BLUE].score}
-            </div>
-            <div style={{ fontSize: '34px', textAlign: 'center', width: '160px', fontWeight: 'bold', letterSpacing: '2px', color: Color.BASE, padding: '10px 10px 0' }}>
-              {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
-            </div>
-            <div style={{ fontSize: '38px', fontWeight: 'bold', color: Color.ORANGE, padding: '8px 16px 0 0' }}>
-              {teams[Team.ORANGE].score}
-            </div>
-          </div>
+          <ScoreHeader teams={teams} time={time} />
           <StyledPlayersBoostDiv>
             <StyledTeamA>
               <PlayersBoost players={blue} targetPlayer={target} teamColor={Color.BLUE} />

@@ -26,6 +26,21 @@ export interface PlayerStatus {
   touches: number;
 }
 
+export type TeamsType = {
+  [index: number]: {
+    name: string;
+    score: number;
+  };
+}
+
+export interface GameResult {
+  teams: TeamsType;
+  players: {
+    blue: PlayerStatus[],
+    orange: PlayerStatus[]
+  };
+}
+
 export interface RocketLeagueState {
   event: string;
   game: {
@@ -36,12 +51,7 @@ export interface RocketLeagueState {
     isOT: boolean;
     isReplay: boolean;
     target: string;
-    teams: {
-      [index: number]: {
-        name: string;
-        score: number;
-      };
-    };
+    teams: TeamsType;
     time: number;
     winner: string;
   };
@@ -56,4 +66,5 @@ export interface RocketLeagueState {
   hasCreatedReplay: boolean;
   winnerTeam: number;
   gameStatus: GameStatus;
+  result: GameResult;
 }
