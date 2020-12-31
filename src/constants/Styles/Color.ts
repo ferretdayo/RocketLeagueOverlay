@@ -5,4 +5,5 @@ export enum Color {
   LIGHT_BLUE = '#5aa9ed',
   ORANGE = '#eb7f26',
   TRANS_GRAY = '#242424ab',
+  TRANS_LIGHT_GRAY = '#d4d4d4ab',
 }

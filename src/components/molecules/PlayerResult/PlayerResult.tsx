@@ -13,12 +13,18 @@ type Props = {
 }
 
 const PlayerResult: React.FC<Props> = ({ players, isWin, targetColumn, teamColor, style = {} }: Props) => {
+  let color: Color
+  if(teamColor === Team.ORANGE) {
+    color = Color.ORANGE
+  } else {
+    color = Color.LIGHT_BLUE
+  }
   return (
     <div style={{width: '40%'}}>
-      <StyledH2>{isWin ? 'Winner' : 'Loser'}</StyledH2>
+      <StyledH2 isWin={isWin}>{isWin ? 'Winner' : 'Loser'}</StyledH2>
       <StyledPlayerNameRow>
         {players.map(player => (
-          <StyledPlayerName key={player.id} playerAmount={players.length}>
+          <StyledPlayerName key={player.id} playerAmount={players.length} color={color}>
             {player.name}
           </StyledPlayerName>
         ))}
@@ -44,10 +50,13 @@ const PlayerResult: React.FC<Props> = ({ players, isWin, targetColumn, teamColor
 export default PlayerResult
 
 type StyledH2Props = {
+  readonly isWin: boolean
 }
 
 const StyledH2 = styled.h2<StyledH2Props>`
   text-align: center;
+  font-size: 46px;
+  color: ${props => props.isWin ? Color.ORANGE : Color.WHITE}
 `
 
 type StyledPlayerNameRowProps = {
@@ -68,10 +77,14 @@ const StyledScoreRowDiv = styled.div<StyledScoreRowDivProps>`
 
 type StyledPlayerNameProps = {
   readonly playerAmount: number
+  readonly color: Color
 }
 
 const StyledPlayerName = styled.div<StyledPlayerNameProps>`
   text-align: center;
+  font-size: 18px;
+  border-bottom: 4px solid ${props => props.color};
+  padding: 20px 0;
   width: calc(100% / ${props => props.playerAmount});
   color: ${Color.WHITE};
 `
@@ -82,6 +95,9 @@ type StyledScoreTextProps = {
 
 const StyledScoreText = styled.div<StyledScoreTextProps>`
   text-align: center;
+  font-size: 26px;
+  padding: 20px 0;
+  border-bottom: 1px solid ${Color.TRANS_GRAY};
   width: calc(100% / ${props => props.playerAmount});
   color: ${Color.WHITE};
 `
