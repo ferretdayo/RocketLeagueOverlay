@@ -7,7 +7,7 @@ import { Team } from '../../../constants/RocketLeague/Team'
 type Props = {
   readonly players: PlayerStatus[]
   readonly isWin: boolean
-  readonly targetColumn: string[]
+  readonly targetColumn: {columnName: string, displayName: string}[]
   readonly teamColor: Team
   readonly style?: object
 }
@@ -31,9 +31,9 @@ const PlayerResult: React.FC<Props> = ({ players, isWin, targetColumn, teamColor
       </StyledPlayerNameRow>
       <div>
         {targetColumn.map(column => (
-          <StyledScoreRowDiv key={column}>
+          <StyledScoreRowDiv key={column.columnName}>
             {players.map(player => {
-              const key = column as keyof typeof player
+              const key = column.columnName as keyof typeof player
               return (
                 <StyledScoreText key={player.id} playerAmount={players.length}>
                   {player[key]}

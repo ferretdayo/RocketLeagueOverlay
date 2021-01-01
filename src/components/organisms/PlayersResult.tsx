@@ -10,21 +10,46 @@ type Props = {
 }
 
 const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
-  const targetColumn = ['goals', 'assists', 'saves', 'shots', 'score']
+  const convertColumnName = [
+    {
+      columnName: 'goals',
+      displayName: 'GOALS',
+    },
+    {
+      columnName: 'assists',
+      displayName: 'ASSISTS',
+    },
+    {
+      columnName: 'saves',
+      displayName: 'SAVES',
+    },
+    {
+      columnName: 'shots',
+      displayName: 'SHOTS',
+    },
+    {
+      columnName: 'touches',
+      displayName: 'BALL TOUCHES',
+    },
+    {
+      columnName: 'score',
+      displayName: 'SCORE',
+    }
+  ]
 
   // それぞれ(goals, assists, saves, shots, score)の割合を算出する関数
-  const calcTarget = (targetColumn: string[], gameResult: GameResult) => {
-    return targetColumn.map(column => {
+  const calcTarget = (convertColumnName: {columnName: string, displayName: string}[], gameResult: GameResult) => {
+    return convertColumnName.map(column => {
       const blueAmount = gameResult.players.blue
         .map(player => {
-          const key = column as keyof typeof player
+          const key = column.columnName as keyof typeof player
           return player[key]
         })
         .reduce((prev, current): number => Number(prev) + Number(current), 0)
 
       const orangeAmount = gameResult.players.orange
         .map(player => {
-          const key = column as keyof typeof player
+          const key = column.columnName as keyof typeof player
           return player[key]
         })
         .reduce((prev, current): number => Number(prev) + Number(current), 0)
@@ -37,7 +62,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
         orange = Number(orangeAmount) * 100 / (Number(orangeAmount) + Number(blueAmount))
       }
       return {
-        [column]: {
+        [column.columnName]: {
           isZero,
           orange,
           blue,
@@ -51,7 +76,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
     }, {})
   }
 
-  const analyze = calcTarget(targetColumn, gameResult)
+  const analyze = calcTarget(convertColumnName, gameResult)
 
   return (
     <>
@@ -60,15 +85,15 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
           players={gameResult.players.blue}
           isWin={winner === Team.BLUE.toString()}
           teamColor={Team.BLUE}
-          targetColumn={targetColumn}
+          targetColumn={convertColumnName}
         />
         <div>
-          {targetColumn.map((column: string) => (
-            <div key={column} style={{flexDirection: 'column', margin: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '72px', fontSize: '26px', color: Color.WHITE}}>
-              {column.toLocaleUpperCase()}
-              <div style={{margin: '10px 0 0', backgroundColor: analyze[column].isZero ? Color.TRANS_LIGHT_GRAY : Color.ORANGE, height: '5px', width: '100%'}}>
-                {!analyze[column].isZero && (
-                  <div style={{backgroundColor: Color.LIGHT_BLUE, height: '5px', width: `${analyze[column].blue}%`}}></div>
+          {convertColumnName.map((column) => (
+            <div key={column.columnName} style={{flexDirection: 'column', margin: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '72px', fontSize: '18px', color: Color.WHITE}}>
+              {column.displayName}
+              <div style={{margin: '10px 0 0', backgroundColor: analyze[column.columnName].isZero ? Color.TRANS_LIGHT_GRAY : Color.ORANGE, height: '5px', width: '100%'}}>
+                {!analyze[column.columnName].isZero && (
+                  <div style={{backgroundColor: Color.LIGHT_BLUE, height: '5px', width: `${analyze[column.columnName].blue}%`}}></div>
                 )}
               </div>
             </div>
@@ -78,7 +103,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
           players={gameResult.players.orange}
           isWin={winner === Team.ORANGE.toString()}
           teamColor={Team.ORANGE}
-          targetColumn={targetColumn}
+          targetColumn={convertColumnName}
         />
       </div>
     </>
