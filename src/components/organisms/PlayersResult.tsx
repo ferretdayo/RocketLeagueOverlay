@@ -11,6 +11,8 @@ type Props = {
 
 const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
   const targetColumn = ['goals', 'assists', 'saves', 'shots', 'score']
+
+  // それぞれ(goals, assists, saves, shots, score)の割合を算出する関数
   const calcTarget = (targetColumn: string[], gameResult: GameResult) => {
     return targetColumn.map(column => {
       const blueAmount = gameResult.players.blue
@@ -56,7 +58,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
         <PlayerResult
           players={gameResult.players.blue}
-          isWin={false}
+          isWin={winner === Team.BLUE.toString()}
           teamColor={Team.BLUE}
           targetColumn={targetColumn}
         />
@@ -74,7 +76,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
         </div>
         <PlayerResult
           players={gameResult.players.orange}
-          isWin={false}
+          isWin={winner === Team.ORANGE.toString()}
           teamColor={Team.ORANGE}
           targetColumn={targetColumn}
         />

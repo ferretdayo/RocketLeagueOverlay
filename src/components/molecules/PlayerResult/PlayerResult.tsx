@@ -55,8 +55,9 @@ type StyledH2Props = {
 
 const StyledH2 = styled.h2<StyledH2Props>`
   text-align: center;
+  margin: 60px 0 20px;
   font-size: 46px;
-  color: ${props => props.isWin ? Color.ORANGE : Color.WHITE}
+  color: ${props => props.isWin ? Color.ORANGE : Color.TRANS_LIGHT_GRAY}
 `
 
 type StyledPlayerNameRowProps = {

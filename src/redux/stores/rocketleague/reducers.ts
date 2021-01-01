@@ -40,7 +40,7 @@ export const initialState: RocketLeagueState = {
       },
     },
     time: 0,
-    winner: "",
+    winner: "0",
   },
   hasGame: false,
   players: {
