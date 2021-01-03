@@ -124,7 +124,7 @@ const App: React.FC<Props> = (props: Props) => {
       orange = [],
       blue = [],
     },
-    gameStatus = GameStatus.MatchEnded,
+    gameStatus,
     result,
   }: RocketLeagueState = props.rocketleague
 
@@ -133,7 +133,7 @@ const App: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="App">
-      {gameStatus === GameStatus.MatchEnded && (
+      {gameStatus === GameStatus.PodiumStarting && (
         <>
           <ScoreHeader teams={teams} time={time} />
           <PlayersResult gameResult={result} winner={winner} />
