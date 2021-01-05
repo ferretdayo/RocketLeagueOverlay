@@ -62,7 +62,23 @@ export const initialState: RocketLeagueState = {
   isGoal: false,
   hasCreatedReplay: false,
   winnerTeam: -1,
-  gameStatus: -1
+  gameStatus: -1,
+  result: {
+    teams: {
+      "0": {
+        name: "",
+        score: 0,
+      },
+      "1": {
+        name: "",
+        score: 0,
+      },
+    },
+    players: {
+      blue: [],
+      orange: [],
+    },
+  }
 }
 
 export const rocketleagueReducer = reducerWithInitialState(initialState)
@@ -80,6 +96,10 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
     return {
       ...state,
       ...payload,
+      result: {
+        teams: state.game.teams,
+        players: state.players,
+      },
       players: { blue: bluePlayers, orange: orangePlayers }
     }
   })
@@ -140,6 +160,10 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
   .case(podiumStart, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
     return {
       ...state,
+      result: {
+        teams: state.game.teams,
+        players: state.players,
+      },
       gameStatus: GameStatus.PodiumStarting
     }
   })

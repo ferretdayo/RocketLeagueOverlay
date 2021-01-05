@@ -37,6 +37,7 @@ export type UpdateGameType = {
       speed: number;
       team: number;
       touches: number;
+      demos: number;
     };
   };
 }

@@ -23,7 +23,6 @@ type StyledTextProps = {
 }
 
 const StyledText = styled.p<StyledTextProps>`
-  margin: 0 !important;
   font-size: ${props => props.size};
   color: ${props => props.color};
   ${props => ({ ...props.style })};
