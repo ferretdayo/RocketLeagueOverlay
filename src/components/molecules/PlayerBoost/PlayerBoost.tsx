@@ -5,22 +5,25 @@ import { Color } from '../../../constants/Styles/Color'
 import { PlayerStatus } from '../../../redux/stores/rocketleague/types'
 import { MAX_PLAYER_NAME_LENGTH } from '../../../constants/RocketLeague/Misc'
 import { FontSize } from '../../../constants/Styles/FontSize'
+import { Team } from '../../../constants/RocketLeague/Team'
 
 type Props = {
   readonly playerInfo: PlayerStatus
   readonly targetPlayer: string
-  readonly teamColor?: Color
+  readonly teamColor?: Team
   readonly style?: object
 }
 
-const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Color.BLUE, style = {} }: Props) => {
+const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Team.BLUE, style = {} }: Props) => {
   let playerNamePosition: any = {}
   let boostNumberPosition: any = {}
   let boostPosition: any = {}
-  if (teamColor === Color.BLUE) {
+  let teamThemeColor = Color.BLUE
+  if (teamColor === Team.BLUE) {
     playerNamePosition.left = '6px'
     boostNumberPosition.right = '6px'
   } else {
+    teamThemeColor = Color.ORANGE
     playerNamePosition.right = '6px'
     boostNumberPosition.left = '6px'
     boostPosition.margin = '0 0 0 auto'
@@ -48,7 +51,7 @@ const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Co
               color={Color.WHITE}
               size={FontSize.SIZE12}
               style={{ ...styles.playerBoost, ...boostNumberPosition }} />
-            <StyledDivBoost backgroundColor={teamColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
+            <StyledDivBoost backgroundColor={teamThemeColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
           </StyledDiv>
         )}
     </div>

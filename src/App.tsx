@@ -109,7 +109,7 @@ const App: React.FC<Props> = (props: Props) => {
       podiumStart(true)
       setTimeout(() => {
         setIsFinishedShowMVP(true)
-      }, 4800)
+      }, 4500)
       console.log("podium_start", data)
     })
     WsSubscribers.subscribe("game", "replay_created", (data: string) => {
@@ -134,7 +134,7 @@ const App: React.FC<Props> = (props: Props) => {
   }: RocketLeagueState = props.rocketleague
 
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
-  const targetPlayerColor = targetPlayer?.team === Team.BLUE ? Color.BLUE : Color.ORANGE
+  const targetPlayerColor = targetPlayer?.team === Team.BLUE ? Color.LIGHT_BLUE : Color.ORANGE
 
   return (
     <div className="App">
@@ -147,10 +147,10 @@ const App: React.FC<Props> = (props: Props) => {
           <ScoreHeader teams={teams} time={time} />
           <StyledPlayersBoostDiv>
             <StyledTeamA>
-              <PlayersBoost players={blue} targetPlayer={target} teamColor={Color.BLUE} />
+              <PlayersBoost players={blue} targetPlayer={target} teamColor={Team.BLUE} />
             </StyledTeamA>
             <StyledTeamB>
-              <PlayersBoost players={orange} targetPlayer={target} teamColor={Color.ORANGE} />
+              <PlayersBoost players={orange} targetPlayer={target} teamColor={Team.ORANGE} />
             </StyledTeamB>
           </StyledPlayersBoostDiv>
           {targetPlayer && (
