@@ -7,20 +7,20 @@ import { Team } from '../../../constants/RocketLeague/Team'
 type Props = {
   readonly players: PlayerStatus[]
   readonly isWin: boolean
-  readonly targetColumn: {columnName: string, displayName: string}[]
+  readonly targetColumn: { columnName: string, displayName: string }[]
   readonly teamColor: Team
   readonly style?: object
 }
 
 const PlayerResult: React.FC<Props> = ({ players, isWin, targetColumn, teamColor, style = {} }: Props) => {
   let color: Color
-  if(teamColor === Team.ORANGE) {
+  if (teamColor === Team.ORANGE) {
     color = Color.ORANGE
   } else {
     color = Color.LIGHT_BLUE
   }
   return (
-    <div style={{width: '40%'}}>
+    <div style={{ width: '40%' }}>
       <StyledH2 isWin={isWin}>{isWin ? 'Winner' : 'Loser'}</StyledH2>
       <StyledPlayerNameRow>
         {players.map(player => (
@@ -55,8 +55,8 @@ type StyledH2Props = {
 
 const StyledH2 = styled.h2<StyledH2Props>`
   text-align: center;
-  margin: 60px 0 20px;
-  font-size: 46px;
+  margin: 40px 0 10px;
+  font-size: 36px;
   color: ${props => props.isWin ? Color.ORANGE : Color.TRANS_LIGHT_GRAY}
 `
 
@@ -85,7 +85,7 @@ const StyledPlayerName = styled.div<StyledPlayerNameProps>`
   text-align: center;
   font-size: 18px;
   border-bottom: 4px solid ${props => props.color};
-  padding: 20px 0;
+  padding: 14px 0;
   width: calc(100% / ${props => props.playerAmount});
   color: ${Color.WHITE};
 `
@@ -96,8 +96,8 @@ type StyledScoreTextProps = {
 
 const StyledScoreText = styled.div<StyledScoreTextProps>`
   text-align: center;
-  font-size: 26px;
-  padding: 20px 0;
+  font-size: 22px;
+  padding: 16px 0;
   border-bottom: 1px solid ${Color.TRANS_GRAY};
   width: calc(100% / ${props => props.playerAmount});
   color: ${Color.WHITE};

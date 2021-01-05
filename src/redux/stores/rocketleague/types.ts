@@ -24,6 +24,7 @@ export interface PlayerStatus {
   speed: number;
   team: number;
   touches: number;
+  demos: number;
 }
 
 export type TeamsType = {

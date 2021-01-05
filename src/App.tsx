@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { WsSubscribers } from "./services/WsSubscriber"
 import { MatchEndType, StatfeedEventType, UpdateGameType } from "./types/RocketLeagueType"
 import './App.css'
@@ -46,6 +46,7 @@ type Props = {
 }
 
 const App: React.FC<Props> = (props: Props) => {
+  const [isFinishedShowMVP, setIsFinishedShowMVP] = useState(false)
   useEffect(() => {
     WsSubscribers.init(49322, false, [
       "game:update_tick",
@@ -71,6 +72,7 @@ const App: React.FC<Props> = (props: Props) => {
     WsSubscribers.subscribe("game", "match_created", (data: string) => {
       matchCreated(true)
       console.log("match_created", data)
+      setIsFinishedShowMVP(false)
     })
     WsSubscribers.subscribe("game", "initialized", (data: string) => {
       initialized(true)
@@ -105,6 +107,9 @@ const App: React.FC<Props> = (props: Props) => {
     })
     WsSubscribers.subscribe("game", "podium_start", (data: string) => {
       podiumStart(true)
+      setTimeout(() => {
+        setIsFinishedShowMVP(true)
+      }, 4800)
       console.log("podium_start", data)
     })
     WsSubscribers.subscribe("game", "replay_created", (data: string) => {
@@ -118,7 +123,6 @@ const App: React.FC<Props> = (props: Props) => {
       target = '',
       teams = {},
       time = 0,
-      winner = "",
     },
     players: {
       orange = [],
@@ -126,6 +130,7 @@ const App: React.FC<Props> = (props: Props) => {
     },
     gameStatus,
     result,
+    winnerTeam
   }: RocketLeagueState = props.rocketleague
 
   const targetPlayer = [...orange, ...blue].find((player: PlayerStatus) => player.id === target)
@@ -133,12 +138,10 @@ const App: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="App">
-      {gameStatus === GameStatus.PodiumStarting && (
-        <>
-          <ScoreHeader teams={teams} time={time} />
-          <PlayersResult gameResult={result} winner={winner} />
-        </>
-      )}
+      <StyledResultDiv active={isFinishedShowMVP && gameStatus === GameStatus.PodiumStarting}>
+        <ScoreHeader teams={teams} time={time} />
+        <PlayersResult gameResult={result} winner={winnerTeam} />
+      </StyledResultDiv>
       {![GameStatus.MatchEnded, GameStatus.PodiumStarting, GameStatus.Initialize, GameStatus.DontPlaying].includes(gameStatus) && (
         <>
           <ScoreHeader teams={teams} time={time} />
@@ -207,6 +210,40 @@ const StyledTeamB = styled.div<StyledDivProps>`
 
 const StyledPlayersBoostDiv = styled.div<StyledDivProps>`
   position: relative;
+`
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+type StyledResultDivProps = {
+  readonly active: boolean
+}
+
+const StyledResultDiv = styled.div<StyledResultDivProps>`
+  display: ${props => props.active ? 'block' : 'none'};
+  visibility: ${props => props.active ? 'visible' : 'hidden'};
+  animation: ${props => props.active ? fadeIn : fadeOut} 1s linear;
+  transition: visibility 1s linear;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  overflowX: hidden;
 `
 
 const mapStateToProps = (state: RootState) => {

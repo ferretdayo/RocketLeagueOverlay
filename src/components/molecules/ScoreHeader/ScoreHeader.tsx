@@ -15,13 +15,13 @@ type Props = {
 const ScoreHeader: React.FC<Props> = ({ teams, time }: Props) => {
   return (
     <StyledDiv>
-      <StyledTeamDiv color={Color.BLUE} style={{padding: '8px 0 0 16px'}}>
+      <StyledTeamDiv color={Color.BLUE} style={{ padding: '4px 0 0 16px' }}>
         {teams[Team.BLUE].score}
       </StyledTeamDiv>
       <StyledTimerDiv>
         {(_.toInteger(time / 60) + "").padStart(2, '0')}:{(_.toInteger(Math.ceil(time) % 60) + "").padStart(2, '0')}
       </StyledTimerDiv>
-      <StyledTeamDiv color={Color.ORANGE} style={{padding: '8px 16px 0 0'}}>
+      <StyledTeamDiv color={Color.ORANGE} style={{ padding: '4px 16px 0 0' }}>
         {teams[Team.ORANGE].score}
       </StyledTeamDiv>
     </StyledDiv>
@@ -48,7 +48,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   background-image: url(${ScoreBackgroundImage});
   background-repeat: no-repeat;
   background-position: center;
-  margin-top: 6px;
+  padding-top: 6px;
 `
 
 const StyledTeamDiv = styled.div<StyleTeamDivProps>`
@@ -65,5 +65,5 @@ const StyledTimerDiv = styled.div<StyledTimerDivProps>`
   font-weight: bold;
   letter-spacing: 2px;
   color: ${Color.BASE};
-  padding: 10px 10px 0;
+  padding: 6px 10px 0;
 `

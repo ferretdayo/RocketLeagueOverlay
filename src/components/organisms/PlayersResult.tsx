@@ -6,10 +6,10 @@ import PlayerResult from '../molecules/PlayerResult/PlayerResult'
 
 type Props = {
   readonly gameResult: GameResult
-  readonly winner: string
+  readonly winner: number
 }
 
-const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
+const PlayersResult: React.FC<Props> = ({ gameResult, winner }: Props) => {
   const convertColumnName = [
     {
       columnName: 'goals',
@@ -38,7 +38,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
   ]
 
   // それぞれ(goals, assists, saves, shots, score)の割合を算出する関数
-  const calcTarget = (convertColumnName: {columnName: string, displayName: string}[], gameResult: GameResult) => {
+  const calcTarget = (convertColumnName: { columnName: string, displayName: string }[], gameResult: GameResult) => {
     return convertColumnName.map(column => {
       const blueAmount = gameResult.players.blue
         .map(player => {
@@ -69,31 +69,31 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
         }
       }
     })
-    .reduce((result, current) => {
-      let keys: string[] = Object.keys(current);
-      result[keys[0]] = current[keys[0]];
-      return result;
-    }, {})
+      .reduce((result, current) => {
+        let keys: string[] = Object.keys(current);
+        result[keys[0]] = current[keys[0]];
+        return result;
+      }, {})
   }
 
   const analyze = calcTarget(convertColumnName, gameResult)
 
   return (
     <>
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
         <PlayerResult
           players={gameResult.players.blue}
-          isWin={winner === Team.BLUE.toString()}
+          isWin={winner === Team.BLUE}
           teamColor={Team.BLUE}
           targetColumn={convertColumnName}
         />
         <div>
           {convertColumnName.map((column) => (
-            <div key={column.columnName} style={{flexDirection: 'column', margin: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '72px', fontSize: '18px', color: Color.WHITE}}>
+            <div key={column.columnName} style={{ flexDirection: 'column', margin: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '59px', fontSize: '18px', color: Color.WHITE }}>
               {column.displayName}
-              <div style={{margin: '10px 0 0', backgroundColor: analyze[column.columnName].isZero ? Color.TRANS_LIGHT_GRAY : Color.ORANGE, height: '5px', width: '100%'}}>
+              <div style={{ margin: '10px 0 0', backgroundColor: analyze[column.columnName].isZero ? Color.TRANS_LIGHT_GRAY : Color.ORANGE, height: '5px', width: '100%' }}>
                 {!analyze[column.columnName].isZero && (
-                  <div style={{backgroundColor: Color.LIGHT_BLUE, height: '5px', width: `${analyze[column.columnName].blue}%`}}></div>
+                  <div style={{ backgroundColor: Color.LIGHT_BLUE, height: '5px', width: `${analyze[column.columnName].blue}%` }}></div>
                 )}
               </div>
             </div>
@@ -101,7 +101,7 @@ const PlayersResult: React.FC<Props> = ({gameResult, winner}: Props) => {
         </div>
         <PlayerResult
           players={gameResult.players.orange}
-          isWin={winner === Team.ORANGE.toString()}
+          isWin={winner === Team.ORANGE}
           teamColor={Team.ORANGE}
           targetColumn={convertColumnName}
         />

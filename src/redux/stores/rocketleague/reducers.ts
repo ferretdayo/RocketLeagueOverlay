@@ -229,6 +229,10 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
     return {
       ...state,
       ...payload,
+      result: {
+        teams: state.game.teams,
+        players: state.players,
+      },
       players: { blue: bluePlayers, orange: orangePlayers }
     }
   })
@@ -289,6 +293,10 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
   .case(podiumStart, (state: RocketLeagueState, payload: boolean): RocketLeagueState => {
     return {
       ...state,
+      result: {
+        teams: state.game.teams,
+        players: state.players,
+      },
       gameStatus: GameStatus.PodiumStarting
     }
   })

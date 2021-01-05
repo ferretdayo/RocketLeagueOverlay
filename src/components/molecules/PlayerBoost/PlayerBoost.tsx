@@ -28,19 +28,29 @@ const PlayerBoost: React.FC<Props> = ({ playerInfo, targetPlayer, teamColor = Co
 
   return (
     <div key={playerInfo.id}>
-      <StyledDiv active={playerInfo.id === targetPlayer ? styles.targetPlayer : {}}>
-        <Text
-          text={playerInfo.name.length > MAX_PLAYER_NAME_LENGTH ? `${playerInfo.name.substr(0, MAX_PLAYER_NAME_LENGTH)}...` : playerInfo.name}
-          color={Color.WHITE}
-          size={FontSize.SIZE12}
-          style={{ ...styles.playerName, ...playerNamePosition }} />
-        <Text
-          text={playerInfo.boost.toString()}
-          color={Color.WHITE}
-          size={FontSize.SIZE12}
-          style={{ ...styles.playerBoost, ...boostNumberPosition }} />
-        <StyledDivBoost backgroundColor={teamColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
-      </StyledDiv>
+      {playerInfo.isDead ? (
+        <StyledDemoDiv>
+          <Text
+            text={'DEMOLISHED'}
+            color={Color.WHITE}
+            size={FontSize.SIZE12}
+            style={{ letterSpacing: '2px' }} />
+        </StyledDemoDiv>
+      ) : (
+          <StyledDiv active={playerInfo.id === targetPlayer ? styles.targetPlayer : {}}>
+            <Text
+              text={playerInfo.name.length > MAX_PLAYER_NAME_LENGTH ? `${playerInfo.name.substr(0, MAX_PLAYER_NAME_LENGTH)}...` : playerInfo.name}
+              color={Color.WHITE}
+              size={FontSize.SIZE12}
+              style={{ ...styles.playerName, ...playerNamePosition }} />
+            <Text
+              text={playerInfo.boost.toString()}
+              color={Color.WHITE}
+              size={FontSize.SIZE12}
+              style={{ ...styles.playerBoost, ...boostNumberPosition }} />
+            <StyledDivBoost backgroundColor={teamColor} boostWidth={playerInfo.boost + "%"} style={{ ...style, ...boostPosition }}></StyledDivBoost>
+          </StyledDiv>
+        )}
     </div>
   )
 }
@@ -49,12 +59,14 @@ export default PlayerBoost
 
 const styles = {
   playerName: {
+    margin: '0 !important',
     position: 'absolute',
     top: '11px',
     fontWeight: 'bold',
     letterSpacing: '1px'
   },
   playerBoost: {
+    margin: '0 !important',
     position: 'absolute',
     top: '11px',
     fontWeight: 'bold'
@@ -68,6 +80,9 @@ type StyledDivProps = {
   readonly active: object
 }
 
+type StyledDemoDivProps = {
+}
+
 type StyledDivBoostProps = {
   readonly backgroundColor: Color
   readonly boostWidth: string
@@ -79,8 +94,22 @@ const StyledDiv = styled.div<StyledDivProps>`
   background-color: #24242490;
   border-radius: 6px;
   margin-bottom: 6px;
+  height: 36px;
+  width: 100%;
   ${props => ({ ...props.active })};
 `
+
+const StyledDemoDiv = styled.div<StyledDemoDivProps>`
+  display: flex;
+  justify-content: center;
+  align-item: center;
+  background-color: #ff000090;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  height: 36px;
+  width: 100%;
+`
+
 const StyledDivBoost = styled.div<StyledDivBoostProps>`
   height: 36px;
   border-radius: 6px;
