@@ -96,10 +96,6 @@ export const rocketleagueReducer = reducerWithInitialState(initialState)
     return {
       ...state,
       ...payload,
-      result: {
-        teams: state.game.teams,
-        players: state.players,
-      },
       players: { blue: bluePlayers, orange: orangePlayers }
     }
   })
